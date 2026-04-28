@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: fintrack-frontend
+spec:
+  replicas: 2
+  selector: 
+   matchlabels:
+     app: fintrack-frontend
+   template:
+     metadata:
+       labels:
+         app: fintrack-frontend
+     spec:
+       containers:
+        - name: frontend
+          image: upendra1889/fintrack-frontend:latest
+          ports:
+            containerPort: 80
+            targetPort: 80
