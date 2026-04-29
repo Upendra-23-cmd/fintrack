@@ -12,7 +12,7 @@ jobs:
       contents: read
       packages: write
 
-       steps:
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -33,10 +33,10 @@ jobs:
 
       - name: Build and push frontend image
         run: |
-          docker build -t ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}-frontend:${IMAGE_TAG} ./client
-          docker push ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}-frontend:${IMAGE_TAG}
+          docker build -t ghcr.io/$REPO_OWNER/$REPO_NAME-frontend:$IMAGE_TAG ./client
+          docker push ghcr.io/$REPO_OWNER/$REPO_NAME-frontend:$IMAGE_TAG
 
       - name: Build and push backend image
         run: |
-          docker build -t ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}-backend:${IMAGE_TAG} ./server
-          docker push ghcr.io/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}-backend:${IMAGE_TAG}
+          docker build -t ghcr.io/$REPO_OWNER/$REPO_NAME-backend:$IMAGE_TAG ./server
+          docker push ghcr.io/$REPO_OWNER/$REPO_NAME-backend:$IMAGE_TAG
