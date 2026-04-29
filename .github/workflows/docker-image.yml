@@ -6,7 +6,7 @@ on:
 
 jobs:
 buildandpush:
-run-on: ubuntu-latest
+runs-on: ubuntu-latest
 permissions:
   contents: read
   packages: write
@@ -18,16 +18,16 @@ steps:
  - name: login to GHCR
    run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-- name: set image tag
+ - name: set image tag
    run: echo "IMAGE_TAG=${GITHUB_SHA}" >> $GITHUB_ENV
 
-- name: Build and push frontend image
-  run: |
+ - name: Build and push frontend image
+   run: |
     docker build -t ghcr.io/${{ github.repository }}/fintrack-frontend:${IMAGE_TAG}  ./client
     docker push ghcr.io/${{ github.repository }}/fintrack-frontend:${IMAGE_TAG} 
 
-- name: Build and push backend image
-  run: |
+ - name: Build and push backend image
+   run: |
     docker build -t ghcr.io/${{ github.repository }}/fintrack-backend:${IMAGE_TAG}  ./server
     docker push ghcr.io/${{ github.repository }}/fintrack-backend:${IMAGE_TAG}
 
