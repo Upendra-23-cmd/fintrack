@@ -1,4 +1,18 @@
-    steps:
+name: CI-buildandpush-image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  buildandpush:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+       steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
