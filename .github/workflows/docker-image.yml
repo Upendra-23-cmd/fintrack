@@ -5,29 +5,29 @@ on:
     branches: [ main ]
 
 jobs:
-buildandpush:
-runs-on: ubuntu-latest
-permissions:
+ buildandpush:
+ runs-on: ubuntu-latest
+ permissions:
   contents: read
   packages: write
 
-steps:
- - name: Checkout code
-   uses: actions/checkout@v2
+ steps:
+  - name: Checkout code
+    uses: actions/checkout@v2
 
- - name: login to GHCR
-   run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+  - name: login to GHCR
+    run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
- - name: set image tag
-   run: echo "IMAGE_TAG=${GITHUB_SHA}" >> $GITHUB_ENV
+  - name: set image tag
+    run: echo "IMAGE_TAG=${GITHUB_SHA}" >> $GITHUB_ENV
 
- - name: Build and push frontend image
-   run: |
-    docker build -t ghcr.io/${{ github.repository }}/fintrack-frontend:${IMAGE_TAG}  ./client
-    docker push ghcr.io/${{ github.repository }}/fintrack-frontend:${IMAGE_TAG} 
+  - name: Build and push frontend image
+    run: |
+     docker build -t ghcr.io/${{ github.repository }}/fintrack-frontend:${IMAGE_TAG}  ./client
+     docker push ghcr.io/${{ github.repository }}/fintrack-frontend:${IMAGE_TAG} 
 
- - name: Build and push backend image
-   run: |
-    docker build -t ghcr.io/${{ github.repository }}/fintrack-backend:${IMAGE_TAG}  ./server
-    docker push ghcr.io/${{ github.repository }}/fintrack-backend:${IMAGE_TAG}
+  - name: Build and push backend image
+    run: |
+     docker build -t ghcr.io/${{ github.repository }}/fintrack-backend:${IMAGE_TAG}  ./server
+     docker push ghcr.io/${{ github.repository }}/fintrack-backend:${IMAGE_TAG}
 
